@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: PegaSysEng
+  role_name: openjdk11
+  description: openjdk11 package
+  company: PegaSysEng
+  license: license (Apache)
+  min_ansible_version: 2.6
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - cosmic
+    - name: Fedora
+      versions:
+        - 28
+        - 29
+        - 30
+  galaxy_tags:
+    - openjdk11

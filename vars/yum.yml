@@ -1,0 +1,13 @@
+---
+sw_jdk_version: 11.0.2
+sw_jdk_java_home: "/usr/lib/jvm/jdk-{{ sw_jdk_version }}"
+
+sw_jdk_tar_url: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-{{ sw_jdk_version }}_linux-x64_bin.tar.gz"
+sw_jdk_filename: "openjdk-{{ sw_jdk_version }}_linux-x64_bin.tar.gz"
+
+
+yum_pkgs:
+  - name: java-1.7.0
+    state: absent
+
+

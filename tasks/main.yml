@@ -1,0 +1,8 @@
+---
+- name: Get OS package manager
+  debug:
+    var: ansible_pkg_mgr
+
+- name: Run the task based on os
+  include: "{{ ansible_pkg_mgr }}.yml"
+

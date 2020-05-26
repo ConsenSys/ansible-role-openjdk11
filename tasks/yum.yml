@@ -1,0 +1,48 @@
+---
+- name: Include task variables
+  include_vars: "{{ item }}"
+  with_items:
+    - yum.yml
+
+- name: Yum clean
+  command: "yum clean all"
+  args:
+    warn: no
+
+# amzn2 only supports python2
+# it doesn't install dnf that is used by python3
+- name: Update any existing packages
+  yum:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    lock_timeout: 180
+  with_items:
+    - "{{ yum_pkgs | default({}) }}"
+  become: yes
+
+- name: Download openjdk 11
+  get_url:
+    url: "{{ sw_jdk_tar_url }}"
+    dest: /tmp/
+
+- name: Unarchive openjdk 11
+  shell: "tar -zxf {{sw_jdk_filename}} --directory /usr/lib/jvm/"
+  args:
+    chdir: /tmp/
+  become: yes
+
+- name: Set openjdk 11 as default
+  alternatives:
+    name="{{ java.exe }}"
+    link="/usr/bin/{{ java.exe }}"
+    path="{{ java.path }}/{{ java.exe }}"
+  with_items:
+    - { path: "{{ sw_jdk_java_home }}/bin", exe: 'java' }
+    - { path: "{{ sw_jdk_java_home }}/bin", exe: 'keytool' }
+    - { path: "{{ sw_jdk_java_home }}/bin", exe: 'javac' }
+    - { path: "{{ sw_jdk_java_home }}/bin", exe: 'javadoc' }
+  loop_control:
+    loop_var: java
+  become: yes
+
+

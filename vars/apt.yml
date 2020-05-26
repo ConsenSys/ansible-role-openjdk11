@@ -1,0 +1,9 @@
+---
+sw_jdk_java_home: "/usr/lib/jvm/java-11-openjdk-amd64"
+
+apt_pkgs:
+
+  - name: openjdk-11-jdk
+    state: present
+
+
